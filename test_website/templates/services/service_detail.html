@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ service.name }}
+{% endblock %}
+
+{% block content %}
+  <h3>{{ service.name }}</h3>
+  <p><strong>Категория:</strong> {{ service.category.name }}</p>
+  <p><strong>Исполнитель:</strong>
+    <a href="{% url 'users:profile' service.executor.username %}">{{ service.executor.username }}</p></a>
+  <p><strong>Цена:</strong> {{ service.price }} ₽ </p>
+  <p><strong>Описание:</strong> {{ service.description }}</p>
+
+  {% if request.user == service.executor %}
+    <a href="{% url 'services:service_edit' service.id %}">Редактировать услугу</a>
+  {% endif %}
+
+  {% if request.user != service.executor %}
+    <form method="post" action="{% url 'services:to_order' service.id %}">
+      {% csrf_token %}
+      <button type="submit">Заказать</button>
+    </form>
+  {% endif %}
+
+{% endblock %}

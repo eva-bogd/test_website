@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Заказ: {{ order.service.name }}
+{% endblock %}
+
+{% block content %}
+  <h3>Заказ: {{ order.service.name }}</h3>
+  <p><strong>Статус:</strong>
+    {% if request.user == order.service.executor or request.user == order.customer %}
+    <form method="post" action="{% url 'services:change_order_status' order.id %}">
+      {% csrf_token %}
+      <select name="new_status">
+        <option value="TODO" {% if order.status == 'TODO' %} selected {% endif %}>Оформлен</option>
+        <option value="IN_PROGRESS" {% if order.status == 'IN_PROGRESS' %} selected {% endif %}>В работе</option>
+        <option value="IN_REVIEW" {% if order.status == 'IN_REVIEW' %} selected {% endif %}>На проверке</option>
+        <option value="DONE" {% if order.status == 'DONE' %} selected {% endif %}>Выполнен</option>
+      </select>
+      <button type="submit">Изменить статус</button>
+    </form>
+  </p>
+  <p><strong>Исполнитель:</strong>
+    <a href="{% url 'users:profile' order.service.executor.username %}">{{ order.service.executor.username }}</a>
+  </p>
+  <p><strong>Заказчик:</strong>
+    <a href="{% url 'users:profile' order.customer.username %}">{{ order.customer.username }}</a>
+  </p>
+  <p><strong>Цена:</strong> {{ order.service.price }} ₽ </p>
+  <p><strong>Описание:</strong> {{ order.service.description }}</p>
+
+
+  {% endif %}
+{% endblock %}

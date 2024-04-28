@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h3>Профиль пользователя: {{ user.username }}</h3>
+  <p>
+  {% if user == request.user %}
+    <a href="{% url 'users:profile_settings' user.username %}">Настройки профиля</a>
+  {% endif %}
+
+  <p>
+  <p><strong>Имя:</strong> {{ user.first_name }}</p>
+  <p><strong>Я:</strong> {{ user.get_role_display }}</p>
+  <p><strong>Контакты:</strong>
+  <ul>
+  <li>Электронная почта: {{ user.email }}</li>
+  <li>Телефон: {{ user.phone_number }}</li>
+  </ul>
+  </p>
+  <p><strong>Опыт:</strong> {{ user.experience }}</p>
+
+  <p>
+  {% include 'includes/my_list.html' %}
+  </p>
+
+{% endblock %}
