@@ -6,6 +6,7 @@
 
 {% block content %}
   <h3>{{ service.name }}</h3>
+  <p>{{service.image}}</p>
   <p><strong>Категория:</strong> {{ service.category.name }}</p>
   <p><strong>Исполнитель:</strong>
     <a href="{% url 'users:profile' service.executor.username %}">{{ service.executor.username }}</p></a>

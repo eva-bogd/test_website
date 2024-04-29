@@ -9,6 +9,7 @@
   <ul>
     {% for service in services %}
       <li>
+        {{service.image}}
         {{service.category}}: <a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a><br>
         Исполнитель: <a href="{% url 'users:profile' service.executor.username %}">{{ service.executor.username }}</a><br>
         Цена: </strong> {{ service.price }} ₽<br>
