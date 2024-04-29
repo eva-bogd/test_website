@@ -13,7 +13,13 @@
   <p><strong>Описание:</strong> {{ service.description }}</p>
 
   {% if request.user == service.executor %}
-    <a href="{% url 'services:service_edit' service.id %}">Редактировать услугу</a>
+    <p><form method="get" action="{% url 'services:service_edit' service.id %}">
+      <button type="submit">Редактировать услугу</button>
+    </form></p>
+    <p><form method="post" action="{% url 'services:service_delete' service.id %}">
+      {% csrf_token %}
+      <button type="submit">Удалить услугу</button>
+    </form></p>
   {% endif %}
 
   {% if request.user != service.executor %}

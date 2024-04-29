@@ -1,33 +1,47 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Заказ: {{ order.service.name }}
+  Заказ: {{ order.name }}
 {% endblock %}
 
 {% block content %}
-  <h3>Заказ: {{ order.service.name }}</h3>
+  <h3>Заказ: {{ order.name }}</h3>
   <p><strong>Статус:</strong>
-    {% if request.user == order.service.executor or request.user == order.customer %}
+
+    {% if request.user == order.executor%}
     <form method="post" action="{% url 'services:change_order_status' order.id %}">
       {% csrf_token %}
       <select name="new_status">
         <option value="TODO" {% if order.status == 'TODO' %} selected {% endif %}>Оформлен</option>
         <option value="IN_PROGRESS" {% if order.status == 'IN_PROGRESS' %} selected {% endif %}>В работе</option>
         <option value="IN_REVIEW" {% if order.status == 'IN_REVIEW' %} selected {% endif %}>На проверке</option>
-        <option value="DONE" {% if order.status == 'DONE' %} selected {% endif %}>Выполнен</option>
+        <option value="CANCEL" {% if order.status == 'CANCEL' %} selected {% endif %}>Отменен</option>
       </select>
       <button type="submit">Изменить статус</button>
     </form>
+    {% endif %}
+
+    {% if request.user == order.customer %}
+    <form method="post" action="{% url 'services:change_order_status' order.id %}">
+      {% csrf_token %}
+      <select name="new_status">
+        <option value="TODO" {% if order.status == 'TODO' %} selected {% endif %}>Оформлен</option>
+        <option value="TO_FIX" {% if order.status == 'TO_FIX' %} selected {% endif %}>На доработку</option>
+        <option value="DONE" {% if order.status == 'DONE' %} selected {% endif %}>Выполнен</option>
+        <option value="CANCEL" {% if order.status == 'CANCEL' %} selected {% endif %}>Отменен</option>
+      </select>
+      <button type="submit">Изменить статус</button>
+    </form>
+    {% endif %}
   </p>
+
   <p><strong>Исполнитель:</strong>
-    <a href="{% url 'users:profile' order.service.executor.username %}">{{ order.service.executor.username }}</a>
+    <a href="{% url 'users:profile' order.executor.username %}">{{ order.executor.username }}</a>
   </p>
   <p><strong>Заказчик:</strong>
     <a href="{% url 'users:profile' order.customer.username %}">{{ order.customer.username }}</a>
   </p>
-  <p><strong>Цена:</strong> {{ order.service.price }} ₽ </p>
-  <p><strong>Описание:</strong> {{ order.service.description }}</p>
+  <p><strong>Цена:</strong> {{ order.price }} ₽ </p>
+  <p><strong>Описание:</strong> {{ order.description }}</p>
 
-
-  {% endif %}
 {% endblock %}

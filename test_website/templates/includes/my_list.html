@@ -1,47 +1,63 @@
 {% load static %}
 
-{% if user.role == 'executor' %}
-  <h4>Мои услуги:</h4>
-    {% if user == request.user%}
-      <p><a href="{% url 'services:service_create'%}">Создать услугу</a><p>
-    {% endif %}
-    <ul>
-      {% for service in my_list_services %}
+{% if user == request.user %}
+
+  {% if user.role == 'executor'%}
+    <h4>Мои услуги:</h4>
+      <p><form method="get" action="{% url 'services:service_create'%}">
+        <button type="submit">Создать услугу</button>
+      </form></p>
+      <ul>
+        {% for service in my_list_services %}
         <li>
-          {{ service.category.name }}
-          - <a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a>
-          - Цена: {{ service.price }} ₽
+            {{ service.category.name }}
+              - <a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a>
+              - Цена: {{ service.price }} ₽
         </li>
-      {% empty %}
-        нет услуг
-      {% endfor %}
-    </ul>
-  {% if user == request.user%}
+        {% empty %}
+          нет услуг
+        {% endfor %}
+      </ul>
     <h4>Мои заказы:</h4>
       <ul>
         {% for order in my_list_orders %}
-          <li>
-            <a href= "{% url 'services:order_detail' order.id %}">{{ order.service.name }}</a>
-            - Цена: {{ order.service.price }} ₽
-            - Статус: {{ order.get_status_display }}
-          </li>
+        <li>
+          <a href= "{% url 'services:order_detail' order.id %}">{{ order.name }}</a>
+              - Цена: {{ order.price }} ₽
+              - Статус: {{ order.get_status_display }}
+        </li>
         {% empty %}
           нет заказов
         {% endfor %}
       </ul>
-  {% endif %}
 
-{% elif user.role == 'customer' and user == request.user %}
-  <h4>Мои заказы:</h4>
-    <ul>
-      {% for order in my_list_orders %}
+  {% elif user.role == 'customer' %}
+    <h4>Мои заказы:</h4>
+      <ul>
+        {% for order in my_list_orders %}
         <li>
-          <a href= "{% url 'services:order_detail' order.id %}">{{ order.service.name }}</a>
-          - Цена: {{ order.service.price }} ₽
-          - Статус: {{ order.get_status_display }}
+            <a href= "{% url 'services:order_detail' order.id %}">{{ order.name }}</a>
+              - Цена: {{ order.price }} ₽
+              - Статус: {{ order.get_status_display }}
         </li>
-      {% empty %}
-        нет заказов
-      {% endfor %}
-    </ul>
+        {% empty %}
+          нет заказов
+        {% endfor %}
+      </ul>
+
+    {% endif %}
+
+{% else %}
+  <h4>Мои услуги:</h4>
+  <ul>
+    {% for service in my_list_services %}
+      <li>
+        {{ service.category.name }}
+            - <a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a>
+            - Цена: {{ service.price }} ₽
+        </li>
+    {% empty %}
+      нет услуг
+    {% endfor %}
+  </ul>
 {% endif %}

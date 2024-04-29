@@ -12,15 +12,13 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
-    path('profile/<str:username>', views.profile, name='profile'),
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('profile/<str:username>/role', views.change_role, name='change_role'),
     path('profile_settings/<str:username>', views.profile_settings,
          name='profile_settings'),
     path('profile_settings/<str:username>/update', views.update_profile,
          name='update_profile'),
-
-
     path('signup/', views.SignUp.as_view(), name='signup'),
-
     path(
         'login/',
         LoginView.as_view(template_name='users/login.html'),

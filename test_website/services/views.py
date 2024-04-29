@@ -6,7 +6,9 @@ from .models import Service, Order
 
 
 def home(request):
-    return render(request, 'home.html')
+    services = Service.objects.all()
+    context = {'services': services}
+    return render(request, 'home.html', context)
 
 
 def service_detail(request, service_id):
@@ -49,6 +51,16 @@ def service_edit(request, service_id):
 
 
 @login_required
+def service_delete(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    user = request.user
+    if user != service.executor:
+        return redirect('services:service_detail', service_id=service.id)
+    service.delete()
+    return redirect('users:profile', username=user.username)
+
+
+@login_required
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     context = {'order': order}
@@ -61,7 +73,14 @@ def to_order(request, service_id):
     user = request.user
     if user == service.executor:
         return redirect('services:service_detail', service_id=service.id)
-    order = Order.objects.create(service=service, customer=user, status='TODO')
+    order = Order.objects.create(
+        service=service,
+        customer=user,
+        executor=service.executor,
+        name=service.name,
+        description=service.description,
+        price=service.price,
+        status='TODO')
     return redirect('services:order_detail', order_id=order.id)
 
 
@@ -69,9 +88,14 @@ def to_order(request, service_id):
 def change_order_status(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     user = request.user
-    if user != order.customer and user != order.service.executor:
+    if user == order.executor:
+        allowed_statuses = ['TODO', 'IN_PROGRESS', 'IN_REVIEW', 'CANCEL']
+    elif user == order.customer:
+        allowed_statuses = ['TODO', 'TO_FIX', 'DONE', 'CANCEL']
+    else:
         return redirect('services:service_detail', order_id=order_id)
     new_status = request.POST.get('new_status')
-    order.status = new_status
-    order.save()
+    if new_status in allowed_statuses:
+        order.status = new_status
+        order.save()
     return redirect('services:order_detail', order_id=order_id)

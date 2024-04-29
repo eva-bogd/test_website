@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'crispy_forms',
     'crispy_bootstrap5',
+    'sorl.thumbnail',
     'users.apps.UsersConfig',
     'services.apps.ServicesConfig'
 ]
@@ -111,6 +112,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type

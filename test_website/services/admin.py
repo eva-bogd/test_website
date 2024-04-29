@@ -14,9 +14,9 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'service', 'customer', 'status')
-    list_filter = ('service',)
-    search_fields = ('service', 'customer')
+    list_display = ('id', 'name', 'customer', 'executor', 'price', 'status')
+    list_filter = ('customer', 'executor')
+    search_fields = ('name', 'customer')
     empty_value_display = '-пусто-'
 
 
