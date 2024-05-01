@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}
   {{ service.name }}
@@ -6,7 +7,11 @@
 
 {% block content %}
   <h3>{{ service.name }}</h3>
-  <p>{{service.image}}</p>
+  {% if service.image %}
+    <p>{% thumbnail service.image "300x200" crop="center" as im %}
+      <img width=300px src="{{ im.url }}">
+    {% endthumbnail %}</p>
+  {% endif %}
   <p><strong>Категория:</strong> {{ service.category.name }}</p>
   <p><strong>Исполнитель:</strong>
     <a href="{% url 'users:profile' service.executor.username %}">{{ service.executor.username }}</p></a>
@@ -15,18 +20,18 @@
 
   {% if request.user == service.executor %}
     <p><form method="get" action="{% url 'services:service_edit' service.id %}">
-      <button type="submit">Редактировать услугу</button>
+      <button class="btn btn-primary my-button" type="submit">Редактировать услугу</button>
     </form></p>
     <p><form method="post" action="{% url 'services:service_delete' service.id %}">
       {% csrf_token %}
-      <button type="submit">Удалить услугу</button>
+      <button class="btn btn-primary my-button" type="submit">Удалить услугу</button>
     </form></p>
   {% endif %}
 
   {% if request.user != service.executor %}
     <form method="post" action="{% url 'services:to_order' service.id %}">
       {% csrf_token %}
-      <button type="submit">Заказать</button>
+      <button class="btn btn-primary my-button" type="submit">Заказать</button>
     </form>
   {% endif %}
 

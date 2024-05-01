@@ -4,6 +4,15 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractUser):
+    """
+    Расширенная модель пользователя Django.
+
+    Дополнительные поля:
+    - role: Роль пользователя (заказчик или исполнитель).
+    - phone_number: Номер телефона пользователя.
+    - experience: Опыт пользователя.
+    """
+
     CUSTOMER = 'customer'
     EXECUTOR = 'executor'
 

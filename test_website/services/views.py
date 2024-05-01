@@ -6,12 +6,18 @@ from .models import Service, Order
 
 
 def home(request):
+    """"
+    Представление для отображения главной страницы.
+    """
     services = Service.objects.all()
     context = {'services': services}
     return render(request, 'home.html', context)
 
 
 def service_detail(request, service_id):
+    """
+    Представление для отображения информации об услуге.
+    """
     service = get_object_or_404(Service, id=service_id)
     context = {'service': service}
     return render(request, 'services/service_detail.html', context)
@@ -19,6 +25,9 @@ def service_detail(request, service_id):
 
 @login_required
 def service_create(request):
+    """
+    Представление для создания новой услуги.
+    """
     form = ServiceForm(request.POST or None, files=request.FILES or None)
     if form.is_valid():
         service = form.save(commit=False)
@@ -31,6 +40,9 @@ def service_create(request):
 
 @login_required
 def service_edit(request, service_id):
+    """
+    Представление для редактирования существующей услуги.
+    """
     service = get_object_or_404(Service, id=service_id)
     if request.user != service.executor:
         return redirect('services:service_detail', service_id=service.id)
@@ -52,6 +64,9 @@ def service_edit(request, service_id):
 
 @login_required
 def service_delete(request, service_id):
+    """
+    Представление для удаления услуги.
+    """
     service = get_object_or_404(Service, id=service_id)
     user = request.user
     if user != service.executor:
@@ -62,6 +77,9 @@ def service_delete(request, service_id):
 
 @login_required
 def order_detail(request, order_id):
+    """
+    Представление для отображения информации о заказе.
+    """
     order = get_object_or_404(Order, id=order_id)
     context = {'order': order}
     return render(request, 'services/order_detail.html', context)
@@ -69,6 +87,9 @@ def order_detail(request, order_id):
 
 @login_required
 def to_order(request, service_id):
+    """
+    Представление для создания заказа на основе выбранной услуги
+    """
     service = get_object_or_404(Service, id=service_id)
     user = request.user
     if user == service.executor:
@@ -86,6 +107,21 @@ def to_order(request, service_id):
 
 @login_required
 def change_order_status(request, order_id):
+    """
+    Представление для изменения статуса заказа.
+
+    Доступные статусы для исполнителя:
+    - Оформлен
+    - В работе
+    - На проверке
+    - Отменен
+
+    Доступные статусы для заказчика:
+    - Оформлен
+    - На доработку
+    - Выполнен
+    - Отменен
+    """
     order = get_object_or_404(Order, id=order_id)
     user = request.user
     if user == order.executor:

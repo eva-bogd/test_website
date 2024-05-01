@@ -5,6 +5,13 @@ User = get_user_model()
 
 
 class Category(models.Model):
+    """
+    Модель категории услуг.
+
+    Поля:
+    - name: Название категории.
+    - slug: Уникальный идентификатор категории для URL.
+    """
     name = models.CharField(
         verbose_name='Название категории',
         help_text='Укажите название категории',
@@ -12,8 +19,8 @@ class Category(models.Model):
         unique=True,
     )
     slug = models.SlugField(
-        verbose_name='Слаг',
-        help_text='Укажите слаг',
+        verbose_name='Slug',
+        help_text='Укажите slug',
         max_length=20,
         unique=True,
     )
@@ -23,6 +30,17 @@ class Category(models.Model):
 
 
 class Service(models.Model):
+    """
+    Модель услуги.
+
+    Поля:
+    - name: Название услуги.
+    - image: Изображение, связанное с услугой.
+    - category: Категория, к которой относится услуга.
+    - executor: Пользователь, который является исполнителем услуги.
+    - description: Описание услуги.
+    - price: Цена услуги.
+    """
     name = models.CharField(
         verbose_name='Название услуги',
         help_text='Укажите название услуги',
@@ -70,6 +88,18 @@ class Service(models.Model):
 
 
 class Order(models.Model):
+    """
+    Модель заказа услуги.
+
+    Поля:
+    - service: Услуга, на которую оформлен заказ.
+    - name: Название заказанной услуги.
+    - description: Описание заказанной услуги.
+    - price: Цена заказанной услуги.
+    - executor: Пользователь, который является исполнителем заказа.
+    - customer: Пользователь, который является заказчиком.
+    - status: Статус заказа.
+    """
     STATUS_CHOICES = [
         ('TODO', 'Оформлен'),
         ('IN_PROGRESS', 'В работе'),
@@ -130,4 +160,4 @@ class Order(models.Model):
         unique_together = ['service', 'customer']
 
     def __str__(self):
-        return self.service.name
+        return self.order.name

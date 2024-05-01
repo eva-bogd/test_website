@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}
   Главная
@@ -9,7 +10,11 @@
   <ul>
     {% for service in services %}
       <li>
-        {{service.image}}
+        {% if service.image %}
+          {% thumbnail service.image "300x200" crop="center" as im %}
+            <img width=300px src="{{ im.url }}">
+          {% endthumbnail %}<br>
+        {% endif %}
         {{service.category}}: <a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a><br>
         Исполнитель: <a href="{% url 'users:profile' service.executor.username %}">{{ service.executor.username }}</a><br>
         Цена: </strong> {{ service.price }} ₽<br>

@@ -12,12 +12,18 @@ User = get_user_model()
 
 
 class SignUp(CreateView):
+    """
+    Представление для регистрации нового пользователя.
+    """
     form_class = CreationForm
     success_url = reverse_lazy('services:home')
     template_name = 'users/signup.html'
 
 
 def profile(request, username):
+    """
+    Представление для отображения профиля пользователя.
+    """
     user = get_object_or_404(User, username=username)
     my_list_services = []
     my_list_orders = []
@@ -39,6 +45,9 @@ def profile(request, username):
 
 @login_required
 def change_role(request, username):
+    """
+    Представление для изменения роли пользователя.
+    """
     user = get_object_or_404(User, username=username)
     if user == request.user:
         new_role = request.POST.get('new_role')
@@ -49,6 +58,9 @@ def change_role(request, username):
 
 @login_required
 def profile_settings(request, username):
+    """
+    Представление для отображения настроек профиля пользователя.
+    """
     user = get_object_or_404(User, username=username)
     profile_form = ProfileUpdateForm(instance=user)
     context = {
@@ -60,6 +72,9 @@ def profile_settings(request, username):
 
 @login_required
 def update_profile(request, username):
+    """
+    Представление для обновления профиля пользователя.
+    """
     user = get_object_or_404(User, username=username)
     if user != request.user:
         return HttpResponseForbidden(

@@ -6,12 +6,18 @@ User = get_user_model()
 
 
 class CreationForm(UserCreationForm):
+    """
+    Форма регистрации нового пользователя.
+    """
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'role', 'email')
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """
+    Форма обновления профиля пользователя.
+    """
     class Meta:
         model = User
         fields = (
@@ -25,6 +31,9 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class PasswordChangingForm(PasswordChangeForm):
+    """
+    Форма сменя пароля.
+    """
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')

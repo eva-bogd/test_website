@@ -17,7 +17,7 @@
           <option value="customer" {% if user.role == 'customer' %}selected{% endif %}>Заказчик</option>
           <option value="executor" {% if user.role == 'executor' %}selected{% endif %}>Исполнитель</option>
         </select>
-        <button type="submit">Изменить роль</button>
+        <button class="btn btn-primary my-button" type="submit">Изменить роль</button>
     </form></p>
   {% endif %}
 

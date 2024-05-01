@@ -6,7 +6,7 @@
 
 {% block content %}
   <h3>Заказ: {{ order.name }}</h3>
-  <p><strong>Статус:</strong>
+  <p><strong>Статус: </strong> {{ order.get_status_display }}
 
     {% if request.user == order.executor%}
     <form method="post" action="{% url 'services:change_order_status' order.id %}">
@@ -17,7 +17,7 @@
         <option value="IN_REVIEW" {% if order.status == 'IN_REVIEW' %} selected {% endif %}>На проверке</option>
         <option value="CANCEL" {% if order.status == 'CANCEL' %} selected {% endif %}>Отменен</option>
       </select>
-      <button type="submit">Изменить статус</button>
+      <button class="btn btn-primary my-button" type="submit">Изменить статус</button>
     </form>
     {% endif %}
 
@@ -30,7 +30,7 @@
         <option value="DONE" {% if order.status == 'DONE' %} selected {% endif %}>Выполнен</option>
         <option value="CANCEL" {% if order.status == 'CANCEL' %} selected {% endif %}>Отменен</option>
       </select>
-      <button type="submit">Изменить статус</button>
+      <button class="btn btn-primary my-button" type="submit">Изменить статус</button>
     </form>
     {% endif %}
   </p>
