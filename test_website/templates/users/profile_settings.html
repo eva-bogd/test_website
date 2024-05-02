@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h3>Профиль пользователя: {{ user.username }}</h3>
+
+  {% if user == request.user%}
+    <p><a href="{% url 'users:password_change'%}">Изменить пароль?</a></p>
+    <form method="post" action={% url 'users:update_profile' user.username %} enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ profile_update_form|crispy }}
+      <button class="btn btn-primary my-button" type="submit">Сохранить</button>
+    </form>
+  {% endif %}
+
+{% endblock %}

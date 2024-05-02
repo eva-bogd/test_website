@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Профиль пользователя: {{ user.username }}</h3>
+  <p>
+  {% if user == request.user %}
+    <a href="{% url 'users:profile_settings' user.username %}">Настройки профиля</a>
+  {% endif %}
+
+  <p><strong>Имя:</strong> {{ user.first_name }}</p>
+
+  {% if user == request.user %}
+  <p><form method="post" action="{% url 'users:change_role' user.username%}">
+      {% csrf_token %}
+      <label for="role_toggle"><strong>Я:</strong></label>
+        <select name="new_role">
+          <option value="customer" {% if user.role == 'customer' %}selected{% endif %}>Заказчик</option>
+          <option value="executor" {% if user.role == 'executor' %}selected{% endif %}>Исполнитель</option>
+        </select>
+        <button class="btn btn-primary my-button" type="submit">Изменить роль</button>
+    </form></p>
+  {% endif %}
+
+  <p><strong>Контакты:</strong>
+  <ul>
+  <li>Электронная почта: {{ user.email }}</li>
+  <li>Телефон: {{ user.phone_number }}</li>
+  </ul>
+  </p>
+  <p><strong>Опыт:</strong> {{ user.experience }}</p>
+
+  <p>
+  {% include 'includes/my_list.html' %}
+  </p>
+
+{% endblock %}
