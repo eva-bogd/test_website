@@ -469,6 +469,11 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 2	2024-05-02 10:07:28.744064+00	2	Разработка и IT	1	[{"added": {}}]	8	1
 3	2024-05-02 10:08:02.326112+00	3	Тексты и переводы	1	[{"added": {}}]	8	1
 4	2024-05-02 10:08:42.640566+00	4	Соцсети и реклама	1	[{"added": {}}]	8	1
+5	2024-05-02 13:54:44.457273+00	1	Разработка логотипа	2	[{"changed": {"fields": ["\\u0418\\u0437\\u043e\\u0431\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u0435"]}}]	10	1
+6	2024-05-02 13:54:47.979931+00	4	Перевод с русского на китайский	2	[{"changed": {"fields": ["\\u0418\\u0437\\u043e\\u0431\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u0435"]}}]	10	1
+7	2024-05-02 13:54:52.343124+00	3	Оформление презентации	2	[{"changed": {"fields": ["\\u0418\\u0437\\u043e\\u0431\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u0435"]}}]	10	1
+8	2024-05-02 13:54:56.642672+00	2	Разработка дизайна визитки	2	[{"changed": {"fields": ["\\u0418\\u0437\\u043e\\u0431\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u0435"]}}]	10	1
+9	2024-05-02 13:55:05.912102+00	5	Перевод с китайского на русский	2	[{"changed": {"fields": ["\\u0418\\u0437\\u043e\\u0431\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u0435"]}}]	10	1
 \.
 
 
@@ -526,6 +531,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 lsglsw662bpf2ypwilgzxg1rykkiffxq	.eJxVjDEOgzAMAP-SuYpCCDbp2J03RHZsCm0FEoGp6t-rSAztene6t0l07FM6im5pFnM13lx-GVN-6lKFPGi5rzavy77NbGtiT1vssIq-bmf7N5ioTHUbkXtU6XoYgdADB08ZETOPPbSNUHReFMi1DoJ47CDGwK26wIiuMZ8v13I3IQ:1s2UKp:rrXOeCeB8D90o43Kq5zruMpY3bJxfq97_rODBdUlO0c	2024-05-16 11:10:43.694408+00
+3ln8fyircop5n4p8gaa6d44uuuuipcc9	.eJxVjMsOgjAUBf-la9OU9hbEpXu-obmvWtRAQmFl_HclYaHbMzPnZRJua0lb1SWNYi6mMaffjZAfOu1A7jjdZsvztC4j2V2xB612mEWf18P9OyhYy7dGjwKQc-ii8yLM0gOKI3UMJLEl30IOrmNCpdDAGZH7HjU45ZgDmPcHFZY5Mg:1s2WXp:enywss1TAVyMJCY3uNdPPykimuHsuasXPhKnZwj_cbU	2024-05-16 13:32:17.006602+00
 \.
 
 
@@ -557,11 +563,11 @@ COPY public.services_order (id, name, description, price, status, customer_id, e
 --
 
 COPY public.services_service (id, name, image, description, price, category_id, executor_id) FROM stdin;
-2	Разработка дизайна визитки	services/GSIzIu0c-0F_tl0_XV0EP3K.jpg	Разработаю дизайн визитки.	300.00	1	1
-1	Разработка логотипа	services/396366-1535043273_uKAekVY.jpg	Разработаю красивый логотип	500.00	1	1
-3	Оформление презентации	services/172960_bonni_last.jpg	Оформлю презентацию	100.00	1	1
-4	Перевод с русского на китайский	services/perevod-dokumentov.jpg	Переведу текст до 1000 знаков с русского на китайский.	300.00	3	2
-5	Перевод с китайского на русский	services/images.jpg	Переведу текст до 1000 знаков с китайского на русский.	300.00	3	2
+1	Разработка логотипа		Разработаю красивый логотип	500.00	1	1
+4	Перевод с русского на китайский		Переведу текст до 1000 знаков с русского на китайский.	300.00	3	2
+3	Оформление презентации		Оформлю презентацию	100.00	1	1
+2	Разработка дизайна визитки		Разработаю дизайн визитки.	300.00	1	1
+5	Перевод с китайского на русский		Переведу текст до 1000 знаков с китайского на русский.	300.00	3	2
 \.
 
 
@@ -570,21 +576,15 @@ COPY public.services_service (id, name, image, description, price, category_id, 
 --
 
 COPY public.thumbnail_kvstore (key, value) FROM stdin;
-sorl-thumbnail||image||e4da4e4507de8aea44a7ce0531d72e93	{"name": "services/396366-1535043273_uKAekVY.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [660, 440]}
-sorl-thumbnail||image||b8f280332c3abf4baec4c57c87a0c83b	{"name": "cache/df/c1/dfc1f42ab3c7f614ae90f1096c46265d.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
-sorl-thumbnail||thumbnails||e4da4e4507de8aea44a7ce0531d72e93	["b8f280332c3abf4baec4c57c87a0c83b"]
 sorl-thumbnail||image||44a4db31156f3c7565ec52edb54aa81f	{"name": "services/GSIzIu0c-0F_tl0_XV0EP3K.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [400, 300]}
 sorl-thumbnail||image||c7bc6e345fe7058bdfd1c68cab930071	{"name": "cache/5e/a2/5ea29db93ae69af8c91e16bf34d6a41c.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
 sorl-thumbnail||thumbnails||44a4db31156f3c7565ec52edb54aa81f	["c7bc6e345fe7058bdfd1c68cab930071"]
+sorl-thumbnail||image||e4da4e4507de8aea44a7ce0531d72e93	{"name": "services/396366-1535043273_uKAekVY.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [660, 440]}
+sorl-thumbnail||image||b8f280332c3abf4baec4c57c87a0c83b	{"name": "cache/df/c1/dfc1f42ab3c7f614ae90f1096c46265d.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
+sorl-thumbnail||thumbnails||e4da4e4507de8aea44a7ce0531d72e93	["b8f280332c3abf4baec4c57c87a0c83b"]
 sorl-thumbnail||image||525ec24278e9dc40e3901e016d5b4e9d	{"name": "services/172960_bonni_last.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [800, 513]}
 sorl-thumbnail||image||f124fd6ebfeb293c68cd1425c2004d5f	{"name": "cache/c2/a3/c2a3a53af030052f8f9f4782add51a9a.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
 sorl-thumbnail||thumbnails||525ec24278e9dc40e3901e016d5b4e9d	["f124fd6ebfeb293c68cd1425c2004d5f"]
-sorl-thumbnail||image||80780bbc2cadfbd5a6e5db2ecf5b1aec	{"name": "services/1423279805862_bulletin_Sfk5YEV.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [513, 549]}
-sorl-thumbnail||image||30aa1857851c111a65c79b3c4121cd0a	{"name": "cache/aa/22/aa22fdc36a94fa0fbd3e6f63455641ff.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
-sorl-thumbnail||thumbnails||80780bbc2cadfbd5a6e5db2ecf5b1aec	["30aa1857851c111a65c79b3c4121cd0a"]
-sorl-thumbnail||image||21c91afcdbcbb9bdb5c9ccb5fb8f49c8	{"name": "services/1423279805862_bulletin.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [513, 549]}
-sorl-thumbnail||image||d386e66f5b06d2a7d08500c0999c61f3	{"name": "cache/94/6b/946bd1a3e3e9bca1eac33ee0565f6843.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
-sorl-thumbnail||thumbnails||21c91afcdbcbb9bdb5c9ccb5fb8f49c8	["d386e66f5b06d2a7d08500c0999c61f3"]
 sorl-thumbnail||image||8a9b7d9b32df34f58eff6c765c6807a5	{"name": "services/perevod-dokumentov.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [870, 573]}
 sorl-thumbnail||image||79a4b9e8ef1b5c389517e4ea28eca930	{"name": "cache/cb/93/cb9345ccff9be4f6b87e3027e3a0b056.jpg", "storage": "django.core.files.storage.filesystem.FileSystemStorage", "size": [300, 200]}
 sorl-thumbnail||thumbnails||8a9b7d9b32df34f58eff6c765c6807a5	["79a4b9e8ef1b5c389517e4ea28eca930"]
@@ -599,8 +599,8 @@ sorl-thumbnail||thumbnails||414eca2d79881f52b651197b1fe155d8	["6ffd7dbd58e978a99
 --
 
 COPY public.users_user (id, password, last_login, is_superuser, username, first_name, last_name, is_staff, is_active, date_joined, role, email, phone_number, experience) FROM stdin;
-1	pbkdf2_sha256$600000$wcdH8MBasxQr35ukeoP7Bh$DRH80l36s+3skkXtwwGzRcmrahMmOg5dYGUXp/JssUA=	2024-05-02 10:47:57.104597+00	t	admin	Иван		t	t	2024-05-02 10:02:00.118959+00	executor	fake1@mail.ru	+12125552368	Описание опыта.
 2	pbkdf2_sha256$600000$y4VAMAmO67HTEJzUPNI0RO$cePm8MmhTTOsAQNsrjKChMqSh8VUkNP7RxBpRWls0F0=	2024-05-02 11:10:43.691014+00	f	tima	Тимофей		f	t	2024-05-02 10:22:36.911213+00	customer	fake2@mail.ru	+79121231234	Описание опыта.
+1	pbkdf2_sha256$600000$wcdH8MBasxQr35ukeoP7Bh$DRH80l36s+3skkXtwwGzRcmrahMmOg5dYGUXp/JssUA=	2024-05-02 13:32:17.002154+00	t	admin	Иван		t	t	2024-05-02 10:02:00.118959+00	executor	fake1@mail.ru	+12125552368	Описание опыта.
 \.
 
 
@@ -645,7 +645,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 40, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 4, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 9, true);
 
 
 --
