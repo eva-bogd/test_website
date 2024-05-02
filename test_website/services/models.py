@@ -80,9 +80,6 @@ class Service(models.Model):
         decimal_places=2,
     )
 
-    class Meta:
-        unique_together = ['name', 'executor']
-
     def __str__(self):
         return self.name
 
@@ -155,9 +152,6 @@ class Order(models.Model):
         max_length=11,
         choices=STATUS_CHOICES,
     )
-
-    class Meta:
-        unique_together = ['service', 'customer']
 
     def __str__(self):
         return self.order.name

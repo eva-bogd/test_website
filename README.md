@@ -3,9 +3,19 @@
 ## Тестовое задание для Python-разработчика, вариант № 2
 
 Сайт с админ панелью и 2-мя кабинетами (Заказчика и Исполнителя) на Django.
+Реализованы следующие функции:
+- Регистрация пользователя;
+- Обновление/изменение данных профиля пользователя;
+- Восстановление пароля (через эмуляцию почтового сервера);
+- Просмотр моих услуг и моих заказов в профиле пользователя;
+- Создание услуги в профиле Исполнителя;
+- Редактирование/удаление услуги при переходе на страницу услуги;
+- Заказ выбранной услуги при переходе на страницу услуги;
+- Изменение статуса заказа Исполнителем/Заказчиком при переходе на страницу заказа.
 
 ### Установка и запуск:
 
+Проект можно запустить в контейнерах с помощью Docker Compose, для этого должны быть установлены Docker и Docker Compose.
 Чтобы запустить проект локально в контейнерах Docker, выполните следующие шаги:
 
 1. Склонируйте репозиторий с помощью команды:
@@ -18,37 +28,44 @@ git clone https://github.com/eva-bogd/test_website.git
 
 ```
 DB_ENGINE=django.db.backends.postgresql
-DB_NAME=postgres
+DB_NAME=testtaskdb
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 DB_HOST=db
 DB_PORT=5432
-ALLOWED_HOSTS=test_website, localhost, 127.0.0.1
+ALLOWED_HOSTS=web,localhost,127.0.0.1
 ```
 
-3. Запустите контейнеры Docker:
+3. Запустите контейнеры Docker из папки infra/:
 
 ```
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 4. Введите команду для сбора статичных файлов:
 
 ```
-docker-compose exec test_website python manage.py collectstatic --no-input
+docker-compose exec web python manage.py collectstatic --no-input
 ```
 
-5. Выполните миграции:
+5. Создайте пустую базу и загрузите туда бэкап с тестовой базой:
 
 ```
-docker-compose exec test_website python manage.py makemigrations
-docker-compose exec test_website python manage.py migrate
+docker compose exec -T -u postgres db psql -c "CREATE DATABASE testtaskdb"
+```
+```
+cat testtaskdb_backup.dump | docker compose exec -T -u postgres db psql -d testtaskdb
 ```
 
-6. Создайте суперпользователя:
-
+6. Логин и пароль для доступа в админку:
 ```
-docker-compose exec test_website python manage.py createsuperuser
+Логин: admin
+Пароль: 123
+```
+Тестовый пользователь:
+```
+Логин: tima
+Пароль: fdsa4321
 ```
 
 ### Технологии:
