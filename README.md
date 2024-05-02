@@ -68,7 +68,7 @@ cat testtaskdb_backup.dump | docker compose exec -T -u postgres db psql -d testt
 Пароль: fdsa4321
 ```
 Ссылка на сайт при локальном запуске: http://localhost/
-Ссылска на админ панель при локальном запуске: http://localhost/admin/
+Ссылка на админ панель при локальном запуске: http://localhost/admin/
 
 
 ### Технологии:
