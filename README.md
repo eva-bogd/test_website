@@ -1,6 +1,6 @@
 [![Built with Django](https://img.shields.io/badge/Built_with-Django-32CD32.svg)](https://www.djangoproject.com/)
 
-## Тестовое задание для Python-разработчика, вариант № 2
+## Сервис для предоставления и заказа услуг
 
 Сайт с админ панелью и 2-мя кабинетами (Заказчика и Исполнителя) на Django.
 Реализованы следующие функции:
